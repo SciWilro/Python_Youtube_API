@@ -2,7 +2,10 @@
 # github.com/SciWilro
 # Takes channel url/name/Id and gets information for all videos
 # Stores it in a pandas Datafame
-# Next step is to store on cloud
+# Next step is to store on cloud (AWS micro-instance)
+
+# Get Youtube API key: https://www.slickremix.com/docs/get-api-key-for-youtube/
+# Set up micro-instance uswing AWS - Amazon Relational Database Service (RDS) PostgreSQL database
 
 # Import Libraries
 import requests
