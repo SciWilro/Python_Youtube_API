@@ -52,16 +52,14 @@ Guide: [Guide](https://adamtheautomator.com/rds-postgres/)
 
 ## Useful Resources
 
-```html
+
 <div>
     <ul>
         <li><a href="https://developers.google.com/youtube/v3/docs/search">Youtube API Docs - Search</a></li>
         <li><a href="https://jingwen-z.github.io/how-to-get-a-youtube-video-information-with-youtube-data-api-by-python/">Getting Video Information From Youtube API</a></li>
-        <li><a href=""></a></li>
     </ul>
     
 </div>
-```
 
 ---
 
