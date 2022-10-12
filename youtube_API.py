@@ -19,8 +19,8 @@ from dotenv import load_dotenv
     # I used http://jsonviewer.stack.hu/ to view json data
     # And then just made this function to view in VSCode - Please suggest better solution if possible
 import json # To export json objects
-def export_json(filename, json_response):
-    with open(filename, "w") as f:
+def export_json(filename: str, json_response: json):
+    with open( str("example_responses/" + filename), "w") as f:
         f.write(str(json_response))
 # export_json("test.json", response)
 # ---------------------------------------- #
@@ -31,33 +31,35 @@ def configure():
     load_dotenv()
 
 # Function to get video details
-def get_video_details(video_id, api_key):
-    
+def get_video_details(video_id: str, api_key: str):
     url_vid= f"https://youtube.googleapis.com/youtube/v3/videos?id={video_id}&part=statistics&key={api_key}"
     response_vid = requests.get(url_vid).json()
-    vid_views = response_vid['items'][0]['statistics']['viewCount']
-    vid_likes = response_vid['items'][0]['statistics']['likeCount']
-    vid_comments = response_vid['items'][0]['statistics']['commentCount']
+
+    for item in response_vid['items']:
+        vid_views = item['statistics']['viewCount']
+        vid_likes = item['statistics']['likeCount']
+        vid_comments = item['statistics']['commentCount']
+
     return (vid_views, vid_likes, vid_comments)
 
-def get_channel_videos(df, api_key, channel_id, pageToken = None):
+def get_channel_videos(df: pd.DataFrame, api_key: str, channel_id: str, pageToken = None) -> pd.DataFrame:
     if pageToken == None:
         pageToken = ''
     
     url= f"https://youtube.googleapis.com/youtube/v3/search?key={api_key}&channelId={channel_id}&part=snippet,id&order=date&maxResults=1000{pageToken}"
     response = requests.get(url).json()
-
+    
     time.sleep(1) # Wait for response - Just to be safe - for loop might start too soon
     
-    for video in response['items']:
-        if video['id']['kind'] == "youtube#video":
-            video_id = video['id']['videoId']
+    for item in response['items']:
+        if item['id']['kind'] == "youtube#video":
+            video_id = item['id']['videoId']
             # Cleaned Title and Description
-            video_title = str(video['snippet']['title']).replace("&amp;","&").replace("&#39;","'")
-            video_description = video['snippet']['description']
+            video_title = str(item['snippet']['title']).replace("&amp;","&").replace("&#39;","'")
+            video_description = item['snippet']['description']
             # Publish Date and Time
-            video_date = str(video['snippet']['publishTime']).split("T")[0]
-            video_time = str(video['snippet']['publishTime'])[11:16]
+            video_date = str(item['snippet']['publishTime']).split("T")[0]
+            video_time = str(item['snippet']['publishTime'])[11:16]
             # Call API for each video using get_video_details()
             vid_views, vid_likes, vid_comments = get_video_details(video_id, api_key)
             
@@ -91,7 +93,7 @@ main()
 # !----! #
 
 
-def get_channel_id(channel_url):
+def get_channel_id(channel_url: str) -> str:
     '''Get Channel Id from url
     Some channels have unique names that dont include channel ID - For this we need to scrape html data for channel page
     Args:
