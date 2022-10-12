@@ -72,19 +72,12 @@ def get_channel_videos(df: pd.DataFrame, api_key: str, channel_id: str, pageToke
                 df = pd.concat( [df, pd.DataFrame( {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index = [len(df)] ) ], axis = 0)
 
         # Run check for multiple pages - otherwise break out of while loop and return new df
-        # If 'nextPageToken' field does not exist we will get KeyError
+        # If 'nextPageToken' field does not exist we will get KeyError and break the while loop
         try:
-            if response['nextPageToken'] != None:
-                print("___________________________")
-                print("'nextpageToken' found - Proceeding to next request")
-                print("___________________________")
-                pageToken = f"&pageToken={response['nextPageToken']}"
+            pageToken = f"&pageToken={response['nextPageToken']}"
         except KeyError:
-            print("___________________________")
-            print("'nextpageToken' does not exist - Last page reached")
-            print("___________________________")
+            # print("'nextpageToken' does not exist - Last page reached")
             break
-
     return df
 
 
@@ -95,7 +88,7 @@ def main():
     
     # TODO get_channel_id(channel_url)
     channel_id = 'UCpeGBKn0axOJAcPHkcPiXcg' # SGU
-    channel_id = 'UC4yOXRDrOFYfeiTZAeJdcZw' # Empty Channel for debugging
+    # channel_id = 'UC4yOXRDrOFYfeiTZAeJdcZw' # Empty Channel for debugging
     # channel_id = 'UCywjuI3tf_eA2I3NHPndGEg'
 
     # Making pandas dataframe
@@ -114,7 +107,7 @@ def main():
 
 
 
-    +
+
 
 
 
@@ -131,7 +124,7 @@ def get_channel_id(channel_url: str) -> str:
     '''Get Channel Id from url
     Some channels have unique names that dont include channel ID - For this we need to scrape html data for channel page
     Args:
-        url (str): Channel url
+        channel_url (str): Channel url
     Returns:
         channel_id (str): Unique channel id used for API calls
     '''
@@ -144,6 +137,21 @@ def get_channel_id(channel_url: str) -> str:
     # E.g. https://www.youtube.com/channel/UCywjuI3tf_eA2I3NHPndGEg -> "UCywjuI3tf_eA2I3NHPndGEg"
     channel_id = ''
     return channel_id
+
+def get_channel_name(channel_id: str) -> str:
+    '''Get channel name from channel Id
+    Args:
+        channel_id (str): Channel Id
+    Returns:
+        channel_name (str): Channel name
+    '''
+    # TODO Might check docs for quick api call?
+    # TODO Could also return name in get_channel_videos() (store just before break)
+    # TODO response['items']['snippet']['channelTitle']
+
+
+
+
 
 # def get_video_comments():
 #     see https://github.com/hellotinah/youtube_sentiment_analysis/blob/main/cleaned_get_youtube_comments.py
