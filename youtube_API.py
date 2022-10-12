@@ -109,6 +109,10 @@ def get_channel_id(channel_url):
     channel_id = ''
     return channel_id
 
+# def get_video_comments():
+#     see https://github.com/hellotinah/youtube_sentiment_analysis/blob/main/cleaned_get_youtube_comments.py
+#     return data
+
 # -------------------------------------------------------- #
 # Sources
 # # Based on https://www.youtube.com/watch?v=fklHBWow8vE
