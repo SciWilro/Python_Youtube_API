@@ -39,10 +39,10 @@ You need to put your Youtube developer API key in a `.env` file, within the root
 
 ![This is not a working API key - Get your own one](images/screenshot_01-fake_api_key.PNG)
 
-Get Key: [developers.google.com/...](https://developers.google.com/youtube/v3)
-Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)
+Create Google Developers Account [here](https://developers.google.com/)  
+Full Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)  
 
-You will also need to set up a PostgeSQL database using Amazon Web Services (AWS), which you can find more about
+You will also need to set up a PostgeSQL database using Amazon Web Services (AWS)...  
 [Guide](https://adamtheautomator.com/rds-postgres/)
 
 ---
