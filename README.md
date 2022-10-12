@@ -23,6 +23,8 @@
 
 </div>
 
+---
+
 <!-- TABLE OF CONTENTS -->
 <details>
     <summary>Table of Contents</summary>
@@ -33,7 +35,7 @@
     </ul>
 </details>
 
-<br/>
+---
 
 ## Notes To Use Project
 
@@ -41,12 +43,12 @@ You need to put your Youtube developer API key in a `.env` file, within the root
 
 ![This is not a working API key - Get your own one](images/screenshot_01-fake_api_key.PNG)
 
-Create Google Developers Account [here](https://developers.google.com/)  
-Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)  
+Create Google Developers Account [here](youtube-api-create)  
+Guide: [How To Get Youtube API key](youtube-api-guide)  
 
 You will also need to set up a PostgeSQL database using Amazon Web Services (AWS)...  
-Create AWS Developers Account [here](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)  
-Guide: [Guide](https://adamtheautomator.com/rds-postgres/)  
+Create AWS Developers Account [here](aws-create)  
+Guide: [How to Set up Amazon RDS PostgreSQL Database](aws-guide)  
 
 ---
 
@@ -83,3 +85,9 @@ Guide: [Guide](https://adamtheautomator.com/rds-postgres/)
 [gmail-url]: mailto:mr.wilro@gmail.com
 [twitter-shield]: https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white
 [twitter-url]: https://twitter.com/The_Wilro
+
+<!-- Links -->
+[youtube-api-create]: https://developers.google.com/
+[youtube-api-guide]: https://www.slickremix.com/docs/get-api-key-for-youtube/
+[aws-create]: https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
+[aws-guide]: https://adamtheautomator.com/rds-postgres/
