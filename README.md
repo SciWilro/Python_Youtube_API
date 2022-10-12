@@ -17,6 +17,8 @@
 
 <h3 align="center">Python Youtube API Project</h3>
 
+<p align="center">Working with Youtube's API to collect video statistics from a channel</p>
+
 <p align="center">Project covers working with: Tokens, Youtube API, PostgreSQL database...</p>
 
 </div>
@@ -40,15 +42,26 @@ You need to put your Youtube developer API key in a `.env` file, within the root
 ![This is not a working API key - Get your own one](images/screenshot_01-fake_api_key.PNG)
 
 Create Google Developers Account [here](https://developers.google.com/)  
-Full Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)  
+Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)  
 
 You will also need to set up a PostgeSQL database using Amazon Web Services (AWS)...  
-[Guide](https://adamtheautomator.com/rds-postgres/)
+Create AWS Developers Account [here](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)  
+Guide: [Guide](https://adamtheautomator.com/rds-postgres/)  
 
 ---
 
 ## Useful Resources
 
+```html
+<div>
+    <ul>
+        <li><a href="https://developers.google.com/youtube/v3/docs/search">Youtube API Docs - Search</a></li>
+        <li><a href="https://jingwen-z.github.io/how-to-get-a-youtube-video-information-with-youtube-data-api-by-python/">Getting Video Information From Youtube API</a></li>
+        <li><a href=""></a></li>
+    </ul>
+    
+</div>
+```
 
 ---
 
