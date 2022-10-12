@@ -32,6 +32,7 @@ def configure():
 
 # Function to get video details
 def get_video_details(video_id: str, api_key: str):
+
     url_vid= f"https://youtube.googleapis.com/youtube/v3/videos?id={video_id}&part=statistics&key={api_key}"
     response_vid = requests.get(url_vid).json()
 
@@ -43,28 +44,47 @@ def get_video_details(video_id: str, api_key: str):
     return (vid_views, vid_likes, vid_comments)
 
 def get_channel_videos(df: pd.DataFrame, api_key: str, channel_id: str, pageToken = None) -> pd.DataFrame:
+    # Good pythonic convention for default values.
     if pageToken == None:
         pageToken = ''
     
-    url= f"https://youtube.googleapis.com/youtube/v3/search?key={api_key}&channelId={channel_id}&part=snippet,id&order=date&maxResults=1000{pageToken}"
-    response = requests.get(url).json()
-    
-    time.sleep(1) # Wait for response - Just to be safe - for loop might start too soon
-    
-    for item in response['items']:
-        if item['id']['kind'] == "youtube#video":
-            video_id = item['id']['videoId']
-            # Cleaned Title and Description
-            video_title = str(item['snippet']['title']).replace("&amp;","&").replace("&#39;","'")
-            video_description = item['snippet']['description']
-            # Publish Date and Time
-            video_date = str(item['snippet']['publishTime']).split("T")[0]
-            video_time = str(item['snippet']['publishTime'])[11:16]
-            # Call API for each video using get_video_details()
-            vid_views, vid_likes, vid_comments = get_video_details(video_id, api_key)
-            
-            # Add to pandas.Dataframe object - .append() replaced with pandas.concat()
-            df = pd.concat( [df, pd.DataFrame( {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index = [len(df)] ) ], axis = 0)
+    # While loop to handle multiple pages in response
+    while True:
+        url= f"https://youtube.googleapis.com/youtube/v3/search?key={api_key}&channelId={channel_id}&part=snippet,id&order=date&maxResults=1000{pageToken}"
+        response = requests.get(url).json()
+        
+        time.sleep(1) # Wait for response - Just to be safe - for loop might start too soon
+
+        # Loop through all of the items in response, store values as vars, and append to df
+        for item in response['items']:
+            if item['id']['kind'] == "youtube#video":
+                video_id = item['id']['videoId']
+                # Cleaned Title and Description
+                video_title = str(item['snippet']['title']).replace("&amp;","&").replace("&#39;","'")
+                video_description = item['snippet']['description']
+                # Publish Date and Time
+                video_date = str(item['snippet']['publishTime']).split("T")[0]
+                video_time = str(item['snippet']['publishTime'])[11:16]
+                # Call API for each video using get_video_details()
+                vid_views, vid_likes, vid_comments = get_video_details(video_id, api_key)
+
+                # Add to pandas.Dataframe object - .append() replaced with pandas.concat()
+                df = pd.concat( [df, pd.DataFrame( {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index = [len(df)] ) ], axis = 0)
+
+        # Run check for multiple pages - otherwise break out of while loop and return new df
+        # If 'nextPageToken' field does not exist we will get KeyError
+        try:
+            if response['nextPageToken'] != None:
+                print("___________________________")
+                print("'nextpageToken' found - Proceeding to next request")
+                print("___________________________")
+                pageToken = f"&pageToken={response['nextPageToken']}"
+        except KeyError:
+            print("___________________________")
+            print("'nextpageToken' does not exist - Last page reached")
+            print("___________________________")
+            break
+
     return df
 
 
@@ -75,12 +95,26 @@ def main():
     
     # TODO get_channel_id(channel_url)
     channel_id = 'UCpeGBKn0axOJAcPHkcPiXcg' # SGU
+    channel_id = 'UC4yOXRDrOFYfeiTZAeJdcZw' # Empty Channel for debugging
     # channel_id = 'UCywjuI3tf_eA2I3NHPndGEg'
 
     # Making pandas dataframe
     df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
     # Call get_channel_videos(), which also calls get_video_details and appends to the df
     df = get_channel_videos(df, api_key, channel_id)
+    
+
+
+
+
+
+
+
+
+
+
+
+    +
 
 
 
@@ -121,7 +155,10 @@ def get_channel_id(channel_url: str) -> str:
 # -------------------------------------------------------- #
 
 
-# DEBUG
+# DEBUGGING
+# video_id="VkL-HtJDpSA"
+
+
 # df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
 # video_id = "a"
 # video_title = "a"
