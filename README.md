@@ -21,6 +21,18 @@
 
 </div>
 
+<!-- TABLE OF CONTENTS -->
+<details>
+    <summary>Table of Contents</summary>
+    <ul>
+        <li><a href="#notes-to-use-project">Getting Started</a></li>
+        <li><a href="#useful-resources">Useful Resources</a></li>
+        <li><a href="#attribution">Attribution</a></li>
+    </ul>
+</details>
+
+<br/>
+
 ## Notes To Use Project
 
 You need to put your Youtube developer API key in a `.env` file, within the root directory.
@@ -31,9 +43,14 @@ Get Key: [developers.google.com/...](https://developers.google.com/youtube/v3)
 Guide: [How To Get Youtube API key](https://www.slickremix.com/docs/get-api-key-for-youtube/)
 
 You will also need to set up a PostgeSQL database using Amazon Web Services (AWS), which you can find more about
+[Guide](https://adamtheautomator.com/rds-postgres/)
+
+---
+
+## Useful Resources
 
 
-
+---
 
 ## Attribution
 
