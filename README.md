@@ -12,7 +12,7 @@
 
 <div align="center">
     <a href="https://github.com/sciwilro/Python_Youtube_API">
-        <img src="images/logo.png" alt="Logo" width="120" height="120">
+        <img src="images/logo.png" alt="Logo" width="240" height="240">
     </a>
 
 <h3 align="center">Python Youtube API Project</h3>
