@@ -13,15 +13,14 @@ import pandas as pd
 import time
 import os
 from dotenv import load_dotenv
-import re
-import json
 from bs4 import BeautifulSoup
+import json
+import re
 
 # ---------------------------------------- #
 # Building Stage - To be removed
     # I used http://jsonviewer.stack.hu/ to view json data
     # And then just made this function to view in VSCode - Please suggest better solution if possible
-import json # To export json objects
 def export_json(filename: str, json_response: json):
     with open( str("example_responses/" + filename), "w") as f:
         f.write(str(json_response))
@@ -34,15 +33,15 @@ def configure():
     load_dotenv()
 
 # Function to get video details
-def get_video_details(video_id: str, api_key: str) -> tuple[str, str, str]:
+def get_video_details(video_id: str, api_key: str) -> tuple[int, int, int]:
 
     url_vid= f"https://youtube.googleapis.com/youtube/v3/videos?id={video_id}&part=statistics&key={api_key}"
     response_vid = requests.get(url_vid).json()
 
     for item in response_vid['items']:
-        vid_views = item['statistics']['viewCount']
-        vid_likes = item['statistics']['likeCount']
-        vid_comments = item['statistics']['commentCount']
+        vid_views = int(item['statistics']['viewCount'])
+        vid_likes = int(item['statistics']['likeCount'])
+        vid_comments = int(item['statistics']['commentCount'])
 
     return (vid_views, vid_likes, vid_comments)
 
@@ -83,34 +82,6 @@ def get_channel_videos(df: pd.DataFrame, api_key: str, channel_id: str, pageToke
             break
     return df
 
-
-
-def main():
-    configure()
-    api_key = os.getenv('API_KEY')
-    
-    # channel_id = 'UCpeGBKn0axOJAcPHkcPiXcg' # SGU
-    # channel_id = 'UC4yOXRDrOFYfeiTZAeJdcZw' # Empty Channel for debugging
-    # channel_id = 'UCywjuI3tf_eA2I3NHPndGEg'
-    channel_url = "https://www.youtube.com/channel/UCywjuI3tf_eA2I3NHPndGEg"
-    channel_id, channel_title = get_channel_info(channel_url)
-
-    # Making pandas dataframe
-    df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
-    # Call get_channel_videos(), which also calls get_video_details and appends to the df
-    df = get_channel_videos(df, api_key, channel_id)
-    
-
-
-
-main()
-
-
-
-# !----! #
-#  TODO
-# !----! #
-
 def get_channel_info(channel_url: str) -> tuple[str, str]:
     '''Get Channel Id and Title from url
     Some channels have unique names that dont include channel ID - For this we need to scrape html data for channel page
@@ -122,14 +93,41 @@ def get_channel_info(channel_url: str) -> tuple[str, str]:
         channel_id (str): Unique channel id used for API calls
         channel_title (str): Channel Title 
     '''
-    # channel_url = "https://www.youtube.com/channel/UCywjuI3tf_eA2I3NHPndGEg"
+
     soup = BeautifulSoup(requests.get(channel_url, cookies=({'CONSENT': 'YES+1'})).text, "html.parser")
     # We locate the JSON data using a regular-expression pattern
     data = re.search(r"var ytInitialData = ({.*});", str(soup.prettify())).group(1)
-    # json.loads() converts the JSON data to a python dictionary (dict) and allows us to easily extract data
+    # This converts the JSON data to a python dictionary (dict) and extracts data
     channel_id = json.loads(data)['header']['c4TabbedHeaderRenderer']['channelId']
     channel_title = json.loads(data)['header']['c4TabbedHeaderRenderer']['title']
     return (channel_id, channel_title)
+
+def main():
+    configure()
+    api_key = os.getenv('API_KEY')
+    
+    channel_url = "https://www.youtube.com/c/TheSkepticsGuide"
+    channel_id, channel_title = get_channel_info(channel_url)
+    # channel_id = 'UCpeGBKn0axOJAcPHkcPiXcg' # SGU
+    # channel_id = 'UC4yOXRDrOFYfeiTZAeJdcZw' # Empty Channel for debugging
+    # channel_id = 'UCywjuI3tf_eA2I3NHPndGEg'
+
+    # Making pandas dataframe
+    df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
+    # Call get_channel_videos(), which also calls get_video_details and appends to the df
+    df = get_channel_videos(df, api_key, channel_id)
+    
+len(df[ df["vid_likes"] > 300 ]) # all videos with more than x likes
+
+main()
+
+
+
+# !----! #
+#  TODO
+# !----! #
+
+
 
 
 
@@ -139,7 +137,32 @@ def get_channel_info(channel_url: str) -> tuple[str, str]:
 #     see https://github.com/hellotinah/youtube_sentiment_analysis/blob/main/cleaned_get_youtube_comments.py
 #     return data
 
+# -------------------------------------------------------- #
+# Sources
+# # Based on https://www.youtube.com/watch?v=fklHBWow8vE
+# -------------------------------------------------------- #
 
 
 # DEBUGGING
+# video_id="VkL-HtJDpSA"
 
+
+# df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
+# video_id = "a"
+# video_title = "a"
+# video_description = "a"
+# video_date = "a"
+# video_time = "a"
+# vid_views = "a"
+# vid_likes = "a"
+# vid_comments = "a"
+
+# type({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments})
+# test_dic = {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}
+# pd.DataFrame(test_dic, index = [0])
+# test = pd.DataFrame({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index=0)
+
+
+# df = df.append({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, ignore_index=True)
+# df = pd.concat( [df, pd.DataFrame({"video_id": [video_id], "video_title": [video_title], "video_description": [video_description], "video_date": [video_date], "video_time": [video_time], "vid_views": [vid_views], "vid_likes": [vid_likes], "vid_comments": [vid_comments]})], axis = 0)
+# df = pd.concat( [df, pd.DataFrame( {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index = [len(df)] ) ], axis = 0)
