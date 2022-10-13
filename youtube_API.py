@@ -62,7 +62,7 @@ def get_channel_videos(df: pd.DataFrame, api_key: str, channel_id: str, pageToke
             if item['id']['kind'] == "youtube#video":
                 video_id = item['id']['videoId']
                 # Cleaned Title and Description
-                video_title = str(item['snippet']['title']).replace("&amp;","&").replace("&#39;","'")
+                video_title = str(item['snippet']['title']).replace("&amp;","&").replace("&#39;","'").replace('&quot;','"')
                 video_description = item['snippet']['description']
                 # Publish Date and Time
                 video_date = str(item['snippet']['publishTime']).split("T")[0]
@@ -117,7 +117,6 @@ def main():
     # Call get_channel_videos(), which also calls get_video_details and appends to the df
     df = get_channel_videos(df, api_key, channel_id)
     
-len(df[ df["vid_likes"] > 300 ]) # all videos with more than x likes
 
 main()
 
