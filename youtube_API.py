@@ -116,7 +116,16 @@ def main():
     df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
     # Call get_channel_videos(), which also calls get_video_details and appends to the df
     df = get_channel_videos(df, api_key, channel_id)
+
+    # While I work out how to use databases I'm saving df to csv and then working with it from another .py file
+    export_panda(df)
+
+def export_panda(df: pd.DataFrame):
+    df.to_csv("youtube_vids_pull.csv")
+
     
+
+
 
 main()
 
