@@ -18,9 +18,9 @@
 
 <h3 align="center">Python Youtube API Project</h3>
 
-<p align="center">Working with Youtube's API to collect video statistics from a channel</p>
+<p align="center">Working with Youtube's API to collect video statistics from a channel and all it's videos</p>
 
-<p align="center">Project covers working with: Tokens, Youtube API, PostgreSQL database...</p>
+<p align="center">Project will cover working with: Tokens safely, Youtube API, PostgreSQL database, and building a dashboard for data visualization</p>
 
 </div>
 
@@ -31,6 +31,7 @@
     <summary>Table of Contents</summary>
     <ul>
         <li><a href="#notes-to-use-project">Getting Started</a></li>
+        <li><a href="#overview">Overview</a></li>
         <li><a href="#useful-resources">Useful Resources</a></li>
         <li><a href="#attribution">Attribution</a></li>
     </ul>
@@ -51,10 +52,17 @@ You will also need to set up a PostgeSQL database using Amazon Web Services (AWS
 Create AWS Developers Account [here](aws-create)  
 Guide: [How to Set up Amazon RDS PostgreSQL Database](aws-guide)  
 
+The code will change a lot, but I'm making notes as I go. When I'm happy with the project I'll add a walkthrough of some kind. Youtube hopefully.
+
+---
+
+## Overview
+
+`TODO` ¯\\_(ツ)_/¯
+
 ---
 
 ## Useful Resources
-
 
 <div>
     <ul>
