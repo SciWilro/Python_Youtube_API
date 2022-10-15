@@ -20,7 +20,9 @@ import re
 # ---------------------------------------- #
 # Building Stage - To be removed
     # I used http://jsonviewer.stack.hu/ to view json data
-    # And then just made this function to view in VSCode - Please suggest better solution if possible
+    # And then just made this function to view in VSCode
+# I found the easiest way is to use the rapidAPI VSCode extension
+# ! So this will be removed and replaced with link to walkthrough.
 def export_json(filename: str, json_response: json):
     with open( str("example_responses/" + filename), "w") as f:
         f.write(str(json_response))
@@ -121,6 +123,9 @@ def main():
     export_panda(df)
 
 def export_panda(df: pd.DataFrame):
+    # TODO 
+    # ! Add channel_titel, channel_id and timestamp to filename for time-wise data
+
     df.to_csv("youtube_vids_pull.csv")
 
     
