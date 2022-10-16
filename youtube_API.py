@@ -154,28 +154,3 @@ main()
 # Sources
 # # Based on https://www.youtube.com/watch?v=fklHBWow8vE
 # -------------------------------------------------------- #
-
-
-# DEBUGGING
-# video_id="VkL-HtJDpSA"
-
-
-# df = pd.DataFrame(columns=["video_id", "video_title", "video_description", "video_date", "video_time", "vid_views", "vid_likes", "vid_comments"])
-# video_id = "a"
-# video_title = "a"
-# video_description = "a"
-# video_date = "a"
-# video_time = "a"
-# vid_views = "a"
-# vid_likes = "a"
-# vid_comments = "a"
-
-# type({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments})
-# test_dic = {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}
-# pd.DataFrame(test_dic, index = [0])
-# test = pd.DataFrame({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index=0)
-
-
-# df = df.append({"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, ignore_index=True)
-# df = pd.concat( [df, pd.DataFrame({"video_id": [video_id], "video_title": [video_title], "video_description": [video_description], "video_date": [video_date], "video_time": [video_time], "vid_views": [vid_views], "vid_likes": [vid_likes], "vid_comments": [vid_comments]})], axis = 0)
-# df = pd.concat( [df, pd.DataFrame( {"video_id": video_id, "video_title": video_title, "video_description": video_description, "video_date": video_date, "video_time": video_time, "vid_views": vid_views, "vid_likes": vid_likes, "vid_comments": vid_comments}, index = [len(df)] ) ], axis = 0)
