@@ -1,6 +1,5 @@
 # Seperate for now, while I work out how to do this 😁
 
-from http.client import TEMPORARY_REDIRECT
 import psycopg2 as ps
 import pandas as pd
 from dotenv import load_dotenv
@@ -42,7 +41,11 @@ def create_table(curr):
         )""")
     curr.execute(create_table_command)
 
-def check_if_video_exists(curr, video_id): 
+#### ! I AM HERE
+
+#video_id = "kP8q62r6ZYs" # Old vid
+#video_id = "8YvsTU_eXGE" # Latest vid
+def check_if_video_exists(curr, video_id):
     query = ("""SELECT video_id FROM VIDEOS WHERE video_id = %s""")
     curr.execute(query, (video_id,))
     # Return if row was found
@@ -56,7 +59,7 @@ def update_row(curr, video_id, video_title, vid_views, vid_likes, vid_comments):
                 vid_comments = %s
             WHERE video_id = %s;""")
 
-    vars_to_update = (video_id, video_title, vid_views, vid_likes, vid_comments)
+    vars_to_update = (video_title, vid_views, vid_likes, vid_comments, video_id)
     curr.execute(query, vars_to_update)
 
 
@@ -90,6 +93,7 @@ def append_from_df_to_db(curr, df):
 
 # TODO This is for building phase. script will be incorporated into main file
 df = pd.read_csv('youtube_vids_pull.csv', index_col=0)
+
 # df.head()
 
 
