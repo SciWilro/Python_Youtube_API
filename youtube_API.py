@@ -104,6 +104,13 @@ def get_channel_info(channel_url: str) -> tuple[str, str]:
     channel_title = json.loads(data)['header']['c4TabbedHeaderRenderer']['title']
     return (channel_id, channel_title)
 
+def export_panda(df: pd.DataFrame):
+    # TODO 
+    # ! Add channel_titel, channel_id and timestamp to filename for time-wise data
+    df.to_csv("youtube_vids_pull.csv")
+
+# =========================================================================== #
+
 def main():
     configure()
     api_key = os.getenv('API_KEY')
@@ -122,11 +129,6 @@ def main():
     # While I work out how to use databases I'm saving df to csv and then working with it from another .py file
     export_panda(df)
 
-def export_panda(df: pd.DataFrame):
-    # TODO 
-    # ! Add channel_titel, channel_id and timestamp to filename for time-wise data
-
-    df.to_csv("youtube_vids_pull.csv")
 
     
 
