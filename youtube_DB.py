@@ -1,5 +1,9 @@
 # Seperate for now, while I work out how to do this 😁
 
+# TODO Automate: https://www.youtube.com/watch?v=wqBFgaMgFQA
+
+# TODO Replace '%s' syntax with f strings?
+
 import psycopg2 as ps
 import pandas as pd
 from dotenv import load_dotenv
