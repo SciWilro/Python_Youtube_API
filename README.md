@@ -45,12 +45,12 @@ You need to put your Youtube developer API key in a `.env` file, within the root
 
 ![This is not a working API key - Get your own one](images/screenshot_01-fake_api_key.PNG)
 
-Create Google Developers Account [here](youtube-api-create)  
-Guide: [How To Get Youtube API key](youtube-api-guide)  
+Create Google Developers Account [here][youtube-api-create]  
+Guide: [How To Get Youtube API key][youtube-api-guide]  
 
 You will also need to set up a PostgeSQL database using Amazon Web Services (AWS)...  
-Create AWS Developers Account [here](aws-create)  
-Guide: [How to Set up Amazon RDS PostgreSQL Database](aws-guide)  
+Create AWS Developers Account [here][aws-create]  
+Guide: [How to Set up Amazon RDS PostgreSQL Database][aws-guide]  
 
 The code will change a lot, but I'm making notes as I go. When I'm happy with the project I'll add a walkthrough of some kind. Youtube hopefully.
 
